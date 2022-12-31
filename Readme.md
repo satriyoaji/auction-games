@@ -20,7 +20,23 @@
 8. start and end auction session using `startAuction` and `endAuction` function
 9. get winner of the opened auction session using `getWinnerOfItemBid` function
 
-#### As an Player:
+#### As a Player:
 1. Bid action using `bid` function
 2. Topup coin balance using `topupBalance` function
 3. find Item bid using `findItemBidByName` function
+
+#### Positive test cases:
+1. As Admin, add Item bid
+    a. find Item bid to check all of added item
+2. As Admin, add Member data with other address and some balance (if needed)
+    a. find Member data to check all of added Member
+3. As Admin, add Member's coin balance (either only)
+4. As Admin, start auction session of 1 item
+    a. can start another item bid
+    b. start again the item that has been started, so it will throw an error validation that can't be started again
+5. As Member, can topup balance (either only)
+6. As Member, can bid the started item in an auction. Make sure the bid price must higher than previous price bid.
+    a. the lose Member that has bid before, will be returning its price bid to the Member again
+7. As Admin, can stop the started auction item. So it will return the winner of the auction. And the price bid of the winner will transferred to the Admin's balance
+8. As Admin, delete the item bid of the previous stopped auction
+9. As admin can delete the unusual Member

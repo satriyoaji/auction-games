@@ -11,7 +11,6 @@ contract BidGames {
     event LogAdminRole(address addrAdmin, string roleMessage);
     event LogBidSuccess(address addrMember, string itemName, string successMessage);
     event LogBidWinner(string itemName, string winnerName, uint bidPriceWon);
-    event checkLogString(string message, uint256 idx);
 
     constructor() {
         admin = msg.sender;
@@ -137,8 +136,13 @@ contract BidGames {
     returns(ItemBid memory) {
         uint256 idx = findItemIdxByName(_itemName);
         require(idx != itemBidNotFoundStatus, "Item bid not found");
-        // emit checkLogString(itemBids[idx].name, idx);
+        
         return itemBids[idx];
+    }
+
+    function getItemBids() public view
+    returns(ItemBid[] memory) {
+        return itemBids;
     }
 
     modifier itemBidCheckActive(string memory _itemName, bool _status) {
@@ -196,7 +200,6 @@ contract BidGames {
 
         return findMemberByAddress(itemBids[idx].lastBidMemberAddress).name;
     }
-
 
     function bid(string memory _itemName, uint _bidPrice) public onlyMemberRegistered {
         uint256 idxitemBid = findItemIdxByName(_itemName);
